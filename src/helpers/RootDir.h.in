@@ -1,0 +1,6 @@
+#ifndef ROOTDIR_H_IN
+#define ROOTDIR_H_IN
+
+#define ROOT_DIR "@CMAKE_SOURCE_DIR@/"
+
+#endif /* ROOTDIR_H_IN */
