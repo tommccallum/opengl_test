@@ -43,7 +43,8 @@ add_library(GLAD "thirdparty/glad.c")
 find_package(ZLIB REQUIRED)
 
 # Put all libraries into a variable
-set(LIBS glfw3 GL dl pthread z IrrXML assimp STB_IMAGE GLAD)
+# WARNING zlib needs to go last otherwise the build on Ubuntu fails
+set(LIBS glfw3 GL dl pthread assimp STB_IMAGE GLAD z)
 
 # Define the include DIRs
 include_directories(

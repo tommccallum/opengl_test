@@ -10,11 +10,20 @@ then
     echo "Cleaning directory"
     [[ -e build ]] && rm -rf build
     [[ -e submodules/assimp/build ]] && rm -rf submodules/assimp/build
-    [[ -e submodules/assimp/build ]] && rm -rf submodules/glfw/build
+    [[ -e submodules/glfw/build ]] && rm -rf submodules/glfw/build
     [[ -e lib/libassimp.a ]] && rm -f /lib/libassimp.a
     [[ -e lib/libglfw3.a ]] && rm -f /lib/libglfw3.a
     exit 0
 fi
+
+CPUCOUNT=$( cat /proc/cpuinfo | grep "^processor" | tail -n 1 | awk '{print $3}' )
+if [ "x$CPUCOUNT" == "x" ]
+then
+    CPUCOUNT=1
+else
+    CPUCOUNT=$(( CPUCOUNT + 1 ))
+fi
+echo "Using ${CPUCOUNT} processors for compilation"
 
 if [ "x$1" == "x" ]
 then
@@ -47,7 +56,7 @@ cd submodules/assimp
 [[ ! -e build ]] && mkdir build
 cd build
 cmake ${CMAKE_ARGS} -DBUILD_SHARED_LIBS=OFF ..
-make -j 8
+make -j ${CPUCOUNT}
 cp ./lib/libassimp.a ../../../lib/
 cd ../../../
 
@@ -56,7 +65,7 @@ cd submodules/glfw
 [[ ! -e build ]] && mkdir build
 cd build
 cmake ${CMAKE_ARGS} ..
-make -j 8
+make -j ${CPUCOUNT}
 cp ./src/libglfw3.a ../../../lib/
 cd ../../../
 
@@ -66,7 +75,7 @@ cd build
 cmake ${CMAKE_ARGS} ..
 if [ $? == 0 ]
 then
-    make -j8
+    make -j ${CPUCOUNT}
     # if [ $? == 0 ]
     # then   
     #     make test

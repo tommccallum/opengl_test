@@ -5,10 +5,11 @@ install:
   - pip install --user conan cmake
   - pip install codecov
   - sudo apt install -y graphviz doxygen
-  - sudo apt install mesa-libGL-devel mesa-libGLU-devel zlib-devel
-  - sudo apt install libXrandr-devel libxinerama-devel libXinerama-devel libXinerama-devel libXcursor-devel libXi-devel
-  - sudo apt install zlib-devel
+  - sudo apt-get -y install libgl1-mesa-dev libglu1-mesa-dev zlib1g-dev pkg-config
+  - sudo apt-get -y install libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev
+  - sudo apt-get -y install git libirrlicht-dev
   
+
 jobs:
   include:
     # looks like this is a bug and GCC version needs bumping for OSX

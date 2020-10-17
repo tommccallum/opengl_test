@@ -7,19 +7,29 @@ This is not finished yet but it is intended to be a starter kit for students loo
 Notes
 
 * the dnf commands are for Fedora 32 and other commands may be required for other distributions.
-* 8 is the number of CPUs, if you have more/less then modify this number
 * I am using the static libraries rather than dynamic libraries
 * For Ubuntu dependencies you can copy and paste from the Dockerfile
 
 ```
 sudo dnf -y install mesa-libGL-devel mesa-libGLU-devel zlib-devel
-sudo dnf -y install libXrandr-devel libxinerama-devel libXinerama-devel libXinerama-devel libXcursor-devel libXi-devel
-sudo dnf -y install zlib-devel
+sudo dnf -y install libXrandr-devel libXinerama-devel libXcursor-devel libXi-devel
+sudo dnf -y install zlib-devel irrXML-devel
 
 git clone https://github.com/tommccallum/opengl_test
 ./build.sh
 cd build
 ./opengl_test
+```
+
+## Docker
+
+It is a straight forward build process for the docker instance.
+
+Currently it crashes when run in the docker environment currently, still investigating.
+
+```
+docker build .
+docker run -ti <CHECKSUM> /bin/bash
 ```
 
 ## Dependencies
