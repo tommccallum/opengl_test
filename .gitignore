@@ -36,3 +36,4 @@ build/
 lib/libassimp.a
 !assets/**/*.obj
 .vscode/
+display/

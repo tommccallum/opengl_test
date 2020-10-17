@@ -18,13 +18,22 @@ RUN apt-get -y install libgl1-mesa-dev libglu1-mesa-dev zlib1g-dev
 RUN apt-get -y install libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev
 RUN apt-get -y install git 
 RUN apt-get -y install libirrlicht-dev
+RUN apt-get -y install glmark2
+# RUN apt-get -y install libglvnd0 \
+#     libgl1 \
+#     libglx0 \
+#     libegl1 \
+#     libxext6 \
+#     libx11-6
+# RUN apt-get install -qqy x11-apps
 
-COPY . /app
-# continue anyway even if we could not make directory
-# as it already exists
+# # Env vars for the nvidia-container-runtime.
+# ENV NVIDIA_VISIBLE_DEVICES all
+# ENV NVIDIA_DRIVER_CAPABILITIES graphics,utility,compute
+
 RUN rm -rf /app/build || true
+COPY . /app
 WORKDIR /app
 RUN chmod +x build.sh
-#RUN ./build.sh clean
-#RUN ./build.sh
-#RUN make test
+RUN ./build.sh clean
+RUN ./build.sh

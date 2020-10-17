@@ -36,9 +36,11 @@ It is a straight forward build process for the docker instance.
 Currently it crashes when run in the docker environment currently, still investigating.
 
 ```
-docker build .
-docker run -ti <CHECKSUM> /bin/bash
+docker build -t opengltest .
+docker run -it --rm -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY --privileged opengltest /bin/bash
 ```
+
+To test the ability to show OpenGL within docker run ```glmark2```.
 
 ## Dependencies
 
@@ -87,6 +89,7 @@ or type the following for build.sh:
 ```
 ./build.sh --debug
 ```
+
 
 
 ## References
