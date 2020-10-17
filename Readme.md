@@ -4,7 +4,7 @@ This is not finished yet but it is intended to be a starter kit for students loo
 
 <!-- [![codecov](https://codecov.io/gh/tommccallum/calc/branch/master/graph/badge.svg?token=QKAZL10PE6)](https://codecov.io/gh/tommccallum/calc) -->
 
-[![Build Status](https://travis-ci.org/github/tommccallum/opengl_test.svg?branch=master)](https://travis-ci.org/tommccallum/opengl_test)
+[![Build Status](https://travis-ci.org/tommccallum/opengl_test.svg?branch=master)](https://travis-ci.org/tommccallum/opengl_test)
 
 
 ## Getting started
