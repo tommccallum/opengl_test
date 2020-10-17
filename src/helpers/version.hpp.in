@@ -1,0 +1,10 @@
+#ifndef VERSION_HPP
+#define VERSION_HPP
+// the configured options and settings for Calc
+#define APP_VERSION_MAJOR  @APP_VERSION_MAJOR@
+#define APP_VERSION_MINOR  @APP_VERSION_MINOR@
+#define APP_BUILD_DATE     "@TODAY@"
+
+// TODO this will be a cmake variable eventually.  It currently works with executable but not with test, error is about missing version.hpp.
+//#define DEBUG 1
+#endif /* VERSION_HPP */

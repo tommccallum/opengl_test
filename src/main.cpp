@@ -14,7 +14,7 @@
 #include "rendering/Texture.h"
 #include "rendering/Model.h"
 
-GLFWwindow* window;
+GLFWwindow* main_window;
 const int WINDOW_WIDTH  = 1024;
 const int WINDOW_HEIGHT = 768;
 
@@ -33,6 +33,7 @@ glm::mat4 projection_matrix = glm::perspectiveFov(glm::radians(60.0f), float(WIN
 
 void window_size_callback(GLFWwindow* window, int width, int height)
 {
+    (void) window;
     glViewport(0, 0, width, height);
     projection_matrix = glm::perspectiveFov(glm::radians(60.0f), float(width), float(height), 0.1f, 10.0f);
 
@@ -54,21 +55,21 @@ int init()
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Hello Modern GL!", nullptr, nullptr);
+    main_window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Hello Modern GL!", nullptr, nullptr);
 
-    if (!window)
+    if (!main_window)
     {
         glfwTerminate();
         return -1;
     }
 
     /* Make the window's context current */
-    glfwMakeContextCurrent(window);
+    glfwMakeContextCurrent(main_window);
 
-    glfwSetWindowSizeCallback(window, window_size_callback);
+    glfwSetWindowSizeCallback(main_window, window_size_callback);
 
     /* Initialize glad */
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)) )
     {
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
@@ -126,7 +127,7 @@ void update()
     float gameTime = 0.0f;
 
     /* Loop until the user closes the window */
-    while (!glfwWindowShouldClose(window))
+    while (!glfwWindowShouldClose(main_window))
     {
         /* Update game time value */
         newTime  = static_cast<float>(glfwGetTime());
@@ -136,7 +137,7 @@ void update()
         render(gameTime);
 
         /* Swap front and back buffers */
-        glfwSwapBuffers(window);
+        glfwSwapBuffers(main_window);
 
         /* Poll for and process events */
         glfwPollEvents();

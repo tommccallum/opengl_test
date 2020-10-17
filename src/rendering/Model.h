@@ -85,6 +85,7 @@ private:
 
     Mesh processMesh(aiMesh *mesh, const aiScene *scene)
     {
+        (void) scene;
         // data to fill
         std::vector<Vertex> vertices;
         std::vector<unsigned int> indices;

@@ -16,7 +16,7 @@ public:
 
     bool load(const std::string & file_name);
     
-    void bind(int index = 0) const
+    void bind(unsigned int index = 0) const
     {
         if(to_id != 0)
         {

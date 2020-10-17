@@ -39,7 +39,7 @@ Shader::Shader(const std::string & vertexShaderFilename,
         return;
     }
 
-    for (int i = 0; i < sizeof(shaderCodes) / sizeof(std::string); ++i)
+    for (unsigned int i = 0; i < sizeof(shaderCodes) / sizeof(std::string); ++i)
     {
         if (shaderCodes[i].empty())
         {
@@ -94,7 +94,7 @@ Shader::Shader(const std::string & vertexShaderFilename,
 
             if (logLen > 0)
             {
-                char * log = (char *)malloc(logLen);
+                char * log = new char[logLen]; // (char *)malloc(logLen);
 
                 GLsizei written;
                 glGetShaderInfoLog(shaderObject, logLen, &written, log);
@@ -138,7 +138,7 @@ bool Shader::link()
 
         if (logLen > 0)
         {
-            char* log = (char*)malloc(logLen);
+            char* log = new char[logLen]; // (char*)malloc(logLen);
             GLsizei written;
             glGetProgramInfoLog(program_id, logLen, &written, log);
 

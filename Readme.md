@@ -19,11 +19,14 @@ Notes
 sudo dnf -y install mesa-libGL-devel mesa-libGLU-devel zlib-devel
 sudo dnf -y install libXrandr-devel libXinerama-devel libXcursor-devel libXi-devel
 sudo dnf -y install zlib-devel irrXML-devel
+sudo dnf -y install doxygen graphviz
+sudo dnf -y install cppcheck
+pip3 install --user conan
+conan profile update settings.compiler.libcxx=libstdc++11 default
 
 git clone https://github.com/tommccallum/opengl_test
 ./build.sh
-cd build
-./opengl_test
+./build/bin/opengl_test
 ```
 
 ## Docker
@@ -67,3 +70,4 @@ sudo dnf -y install libXrandr-devel libxinerama-devel libXinerama-devel libXiner
 ## References
 
 * [How to setup OpenGL project with CMake by Tomasz Gałaj, posted May 29 2018](https://shot511.github.io/2018-05-29-how-to-setup-opengl-project-with-cmake/)
+* [C++ Starter Project by Jason Turner aka Lefticus](https://github.com/lefticus/cpp_starter_project)

@@ -13,6 +13,9 @@ then
     [[ -e submodules/glfw/build ]] && rm -rf submodules/glfw/build
     [[ -e lib/libassimp.a ]] && rm -f /lib/libassimp.a
     [[ -e lib/libglfw3.a ]] && rm -f /lib/libglfw3.a
+    [[ -e include/glm ]] && rm -rf include/glm
+    [[ -e include/GLFW ]] && rm -rf include/GLFW
+    [[ -e include/assimp ]] && rm -rf include/assimp
     exit 0
 fi
 
@@ -58,7 +61,10 @@ cd build
 cmake ${CMAKE_ARGS} -DBUILD_SHARED_LIBS=OFF ..
 make -j ${CPUCOUNT}
 cp ./lib/libassimp.a ../../../lib/
-cd ../../../
+cd ..
+cp -R ./include/assimp ../../include/assimp
+cp -R ./build/include/assimp/* ../../include/assimp
+cd ../../
 
 echo "Building GLFW library"
 cd submodules/glfw
@@ -67,7 +73,12 @@ cd build
 cmake ${CMAKE_ARGS} ..
 make -j ${CPUCOUNT}
 cp ./src/libglfw3.a ../../../lib/
-cd ../../../
+cd ..
+cp -R ./include/GLFW ../../include/GLFW
+cd ../../
+
+echo "Copying over GLM header only library"
+cp -R submodules/glm/glm include/glm
 
 echo "Building our application"
 mkdir build
@@ -76,8 +87,12 @@ cmake ${CMAKE_ARGS} ..
 if [ $? == 0 ]
 then
     make -j ${CPUCOUNT}
-    # if [ $? == 0 ]
-    # then   
-    #     make test
-    # fi
+    if [ $? == 0 ]
+    then   
+        make test
+        if [ $? == 0 ]
+        then
+            echo "To run type: ./build/bin/opengltest"
+        fi
+    fi
 fi
