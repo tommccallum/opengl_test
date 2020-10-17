@@ -1,5 +1,5 @@
 /** 
- * Copyright (C) 2018 Tomasz Ga³aj
+ * Copyright (C) 2018 Tomasz Gaï¿½aj
  **/
 
 #include <iostream>
@@ -85,7 +85,7 @@ int init()
 
 int loadContent()
 {
-    mesh = new Model("res/models/alliance.obj");
+    mesh = new Model("assets/models/alliance.obj");
 
     /* Create and apply basic shader */
     shader = new Shader("Basic.vert", "Basic.frag");
@@ -98,7 +98,7 @@ int loadContent()
     shader->setUniform3fv("cam_pos", cam_position);
 
     texture = new Texture();
-    texture->load("res/models/alliance.png");
+    texture->load("assets/models/alliance.png");
     texture->bind();
 
     return true;

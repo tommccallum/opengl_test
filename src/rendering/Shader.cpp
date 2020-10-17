@@ -188,7 +188,7 @@ std::string Shader::loadFile(const std::string & filename)
     std::string filetext;
     std::string line;
 
-    std::ifstream inFile(ROOT_DIR "res/shaders/" + filename);
+    std::ifstream inFile(ROOT_DIR "assets/shaders/" + filename);
 
     if (!inFile)
     {
