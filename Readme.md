@@ -1,5 +1,42 @@
 # opengl_test
 
+## Getting starts
+
+Notes
+
+* the dnf commands are for Fedora 32 and other commands may be required for other distributions.
+* 8 is the number of CPUs, if you have more/less then modify this number
+
+```
+sudo dnf -y install mesa-libGL-devel mesa-libGLU-devel zlib-devel
+sudo dnf -y install libXrandr-devel libxinerama-devel libXinerama-devel libXinerama-devel libXcursor-devel libXi-devel
+
+git clone https://github.com/tommccallum/opengl_test
+git submodule init
+git submodule update
+
+cd submodules/assimp
+mkdir build
+cmake -DBUILD_SHARED_LIBS=OFF ..
+make -j 8
+cp ./lib/libassimp.a ../../../lib/
+
+cd submodules/glfw
+mkdir build
+cmake ..
+make -j 8
+cp ./src/libglfw3.a ../../../lib/
+
+cd ../../../
+mkdir build
+cd build
+cmake ..
+make
+./opengl_test
+```
+
+## Dependencies
+
 * [GLAD is Multi-Language GL/GLES/EGL/GLX/WGL Loader-Generator based on the official specs.](https://glad.dav1d.de/)
 * [GLM is OpenGL Mathematics](https://glm.g-truc.net/0.9.9/index.html)
 * [STB is the Sean T Barrett C Library](https://github.com/nothings/stb)
@@ -22,11 +59,7 @@ Assimp static libraries are:
 
 Dependencies that need to be installed to get GLFW to compile:
 ```
-sudo dnf -y install libXrandr-devel
-sudo dnf -y install libxinerama-devel
-sudo dnf -y install libXinerama-devel
-sudo dnf -y install libXcursor-devel
-sudo dnf -y install libXi-devel
+sudo dnf -y install libXrandr-devel libxinerama-devel libXinerama-devel libXinerama-devel libXcursor-devel libXi-devel
 ```
 
 ## References
