@@ -2,12 +2,13 @@
 
 This is not finished yet but it is intended to be a starter kit for students looking to use OpenGL on projects for University of Highlands and Islands.
 
-## Getting starts
+## Getting started
 
 Notes
 
 * the dnf commands are for Fedora 32 and other commands may be required for other distributions.
 * 8 is the number of CPUs, if you have more/less then modify this number
+* I am using the static libraries rather than dynamic libraries
 
 ```
 sudo dnf -y install mesa-libGL-devel mesa-libGLU-devel zlib-devel
@@ -57,7 +58,6 @@ sudo dnf -y install mesa-libGL-devel mesa-libGLU-devel
 Assimp static libraries are:
 ```
 ./code/libassimp.a
-./contrib/irrXML/libIrrXML.a
 ```
 
 Dependencies that need to be installed to get GLFW to compile:
