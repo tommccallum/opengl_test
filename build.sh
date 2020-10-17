@@ -1,0 +1,74 @@
+#!/bin/bash
+
+# Need to remake everything with clang
+CURDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+echo "Working directory: $CURDIR"
+cd $CURDIR
+
+if [ "x$1" == "xclean" ]
+then
+    echo "Cleaning directory"
+    [[ -e build ]] && rm -rf build
+    [[ -e submodules/assimp/build ]] && rm -rf submodules/assimp/build
+    [[ -e submodules/assimp/build ]] && rm -rf submodules/glfw/build
+    [[ -e lib/libassimp.a ]] && rm -f /lib/libassimp.a
+    [[ -e lib/libglfw3.a ]] && rm -f /lib/libglfw3.a
+    exit 0
+fi
+
+if [ "x$1" == "x" ]
+then
+    # go with system defaults
+    CMAKE_ARGS="" 
+else
+    # e.g. gcc/g++ or clang/clang++
+    if [ "x$1" == "clang" ]
+    then
+        C_COMPILER="$1"
+        CXX_COMPILER="${1}++"
+    elif [ "x$1" == "gnu" ]
+    then
+        C_COMPILER="gcc"
+        CXX_COMPILER="g++"
+    else
+        echo "Invalid argument, expected gnu or clang"
+        exit 1
+    fi
+    CMAKE_ARGS="-DCMAKE_C_COMPILER=$(which $C_COMPILER) -DCMAKE_CXX_COMPILER=$(which ${CXX_COMPILER})"
+fi
+
+
+echo "Creating/Updating submodules"
+git submodule init
+git submodule update
+
+echo "Building Asset Importer library"
+cd submodules/assimp
+[[ ! -e build ]] && mkdir build
+cd build
+cmake ${CMAKE_ARGS} -DBUILD_SHARED_LIBS=OFF ..
+make -j 8
+cp ./lib/libassimp.a ../../../lib/
+cd ../../../
+
+echo "Building GLFW library"
+cd submodules/glfw
+[[ ! -e build ]] && mkdir build
+cd build
+cmake ${CMAKE_ARGS} ..
+make -j 8
+cp ./src/libglfw3.a ../../../lib/
+cd ../../../
+
+echo "Building our application"
+mkdir build
+cd build
+cmake ${CMAKE_ARGS} ..
+if [ $? == 0 ]
+then
+    make -j8
+    # if [ $? == 0 ]
+    # then   
+    #     make test
+    # fi
+fi

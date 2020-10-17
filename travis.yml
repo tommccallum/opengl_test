@@ -1,0 +1,66 @@
+# TODO get this working for latest compilers through github
+language: cpp
+
+install:
+  - pip install --user conan cmake
+  - pip install codecov
+  - sudo apt install -y graphviz doxygen
+  - sudo apt install mesa-libGL-devel mesa-libGLU-devel zlib-devel
+  - sudo apt install libXrandr-devel libxinerama-devel libXinerama-devel libXinerama-devel libXcursor-devel libXi-devel
+  - sudo apt install zlib-devel
+  
+jobs:
+  include:
+    # looks like this is a bug and GCC version needs bumping for OSX
+    # - os: osx
+    #   compiler: gcc
+    #   osx_image: xcode11.2    # includes gcc-9 by default
+    #   env:
+    #     # Conan is at: ${HOME}/Library/Python/2.7/bin: we need this in the path
+    #     - PATH="${HOME}/Library/Python/2.7/bin:${PATH}"
+    #     - GCC_VER="9"
+    #     - MATRIX_EVAL="CC=gcc-${GCC_VER} && CXX=g++-${GCC_VER}"
+    #   after_script:
+    #     - bash <(curl -s https://codecov.io/bash) -x /usr/bin/gcov-${GCC_VER}
+    # - os: osx
+    #   compiler: clang
+    #   osx_image: xcode11.2
+    #   env:
+    #     - PATH="${HOME}/Library/Python/2.7/bin:${PATH}"
+    #     - MATRIX_EVAL=""
+    - os: linux
+      dist: bionic
+      compiler: gcc
+      env:
+        - GCC_VER="9"
+        - MATRIX_EVAL="CC=gcc-${GCC_VER} && CXX=g++-${GCC_VER}"
+
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            # I couldn't get ${GCC_VER} in here successfully
+            - gcc-9
+            - g++-9
+            - doxygen
+            - graphviz
+      after_script:
+        - bash <(curl -s https://codecov.io/bash) -x /usr/bin/gcov-${GCC_VER}
+    - os: linux
+      dist: bionic
+      compiler: clang
+      env:
+        - MATRIX_EVAL="CC=clang && CXX=clang++"
+      addons: { apt: { packages: ['doxygen'] } }
+
+
+before_script:
+  - eval "${MATRIX_EVAL}"
+
+script:
+  - ./build.sh
+  
+# Push the results back to codecov
+after_success:
+  - codecov
