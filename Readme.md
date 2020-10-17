@@ -37,6 +37,7 @@ make
 
 ## Dependencies
 
+* [The Open-Asset-Importer-Lib](https://www.assimp.org/)
 * [GLAD is Multi-Language GL/GLES/EGL/GLX/WGL Loader-Generator based on the official specs.](https://glad.dav1d.de/)
 * [GLM is OpenGL Mathematics](https://glm.g-truc.net/0.9.9/index.html)
 * [STB is the Sean T Barrett C Library](https://github.com/nothings/stb)
