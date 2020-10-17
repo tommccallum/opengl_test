@@ -34,4 +34,4 @@
 tmp/
 build/
 lib/libassimp.a
-!models/**/*.obj
+!assets/**/*.obj
