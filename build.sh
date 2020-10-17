@@ -2,8 +2,8 @@
 
 BUILD_TYPE="Release"    # either Release / Debug
 ACTION="build"          # either build / clean
-C_COMPILER=""           # if empty string, use system default
-CXX_COMPILER=""         # if empty string, use system default
+LOCAL_C_COMPILER=""           # if empty string, use system default
+LOCAL_CXX_COMPILER=""         # if empty string, use system default
 
 # Need to remake everything with clang
 CURDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
@@ -22,13 +22,13 @@ do
     fi
     if [ "x$arg" == "x--compiler=gnu" ]
     then
-        C_COMPILER="gcc"
-        CXX_COMPILER="g++"
+        LOCAL_C_COMPILER="gcc"
+        LOCAL_CXX_COMPILER="g++"
     fi
     if [ "x$arg" == "x--compiler=clang" ]
     then
-        C_COMPILER="clang"
-        CXX_COMPILER="clang++"
+        LOCAL_C_COMPILER="clang"
+        LOCAL_CXX_COMPILER="clang++"
     fi
 done
 
@@ -64,7 +64,7 @@ then
     # go with system defaults
     CMAKE_ARGS="" 
 else
-    CMAKE_ARGS="-DCMAKE_C_COMPILER=$(which $C_COMPILER) -DCMAKE_CXX_COMPILER=$(which ${CXX_COMPILER})"
+    CMAKE_ARGS="-DCMAKE_C_COMPILER=$(which $LOCAL_C_COMPILER) -DCMAKE_CXX_COMPILER=$(which ${LOCAL_CXX_COMPILER})"
     echo "cmake arguments: ${CMAKE_ARGS}"
 fi
 
