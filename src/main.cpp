@@ -1,10 +1,10 @@
 /** 
  * Copyright (C) 2018 Tomasz Ga�aj
  **/
-
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
 
 #define  GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
@@ -65,7 +65,7 @@ int init()
 
     /* Make the window's context current */
     glfwMakeContextCurrent(main_window);
-
+    
     glfwSetWindowSizeCallback(main_window, window_size_callback);
 
     /* Initialize glad */
@@ -81,7 +81,7 @@ int init()
 
     glEnable(GL_DEPTH_TEST);
 
-    return true;
+    return 1;
 }
 
 int loadContent()
@@ -102,7 +102,7 @@ int loadContent()
     texture->load("assets/models/alliance.png");
     texture->bind();
 
-    return true;
+    return 1;
 }
 
 void render(float time)

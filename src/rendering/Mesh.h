@@ -34,7 +34,9 @@ public:
     {
         this->m_vertices = vertices;
         this->m_indices = indices;
-
+        this->VAO = 0;
+        this->VBO = 0;
+        this->EBO = 0;
         // now that we have all the required data, set the vertex buffers and its attribute pointers.
         setupMesh();
     }

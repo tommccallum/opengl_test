@@ -51,6 +51,7 @@ docker run -ti <CHECKSUM> /bin/bash
 * [libxinerama]()
 * [libXcursor-devel are the XCursor headers]()
 * [libxi-devel are the XInput headers]()
+* [GLEW](https://github.com/nigels-com/glew)
 
 For OpenGL you need the following libraries:
 ```
@@ -66,6 +67,27 @@ Dependencies that need to be installed to get GLFW to compile:
 ```
 sudo dnf -y install libXrandr-devel libxinerama-devel libXinerama-devel libXinerama-devel libXcursor-devel libXi-devel
 ```
+
+## Digging in
+
+* You can find out what commands are running in the build, by going to the build directory and running the following:
+
+```
+make VERBOSE=1
+```
+
+For debug mode you can specify the following argument to cmake when in the build directory:
+
+```
+cmake -DCMAKE_BUILD_TYPE=Debug ..
+```
+
+or type the following for build.sh:
+
+```
+./build.sh --debug
+```
+
 
 ## References
 

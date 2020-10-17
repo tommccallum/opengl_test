@@ -1,23 +1,54 @@
 #!/bin/bash
 
+BUILD_TYPE="Release"    # either Release / Debug
+ACTION="build"          # either build / clean
+C_COMPILER=""           # if empty string, use system default
+CXX_COMPILER=""         # if empty string, use system default
+
 # Need to remake everything with clang
 CURDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 echo "Working directory: $CURDIR"
 cd $CURDIR
 
-if [ "x$1" == "xclean" ]
+for arg in "$@"
+do
+    if [ "x$arg" == "x--debug" ]
+    then
+        BUILD_TYPE="Debug"
+    fi
+    if [ "x$arg" == "xclean" ]
+    then
+        ACTION="clean"
+    fi
+    if [ "x$arg" == "x--compiler=gnu" ]
+    then
+        C_COMPILER="gcc"
+        CXX_COMPILER="g++"
+    fi
+    if [ "x$arg" == "x--compiler=clang" ]
+    then
+        C_COMPILER="clang"
+        CXX_COMPILER="clang++"
+    fi
+done
+
+if [ "x${ACTION}" == "xclean" ]
 then
     echo "Cleaning directory"
     [[ -e build ]] && rm -rf build
     [[ -e submodules/assimp/build ]] && rm -rf submodules/assimp/build
     [[ -e submodules/glfw/build ]] && rm -rf submodules/glfw/build
+    [[ -e submodules/glew/build ]] && rm -rf submodules/glew/build
     [[ -e lib/libassimp.a ]] && rm -f /lib/libassimp.a
     [[ -e lib/libglfw3.a ]] && rm -f /lib/libglfw3.a
     [[ -e include/glm ]] && rm -rf include/glm
     [[ -e include/GLFW ]] && rm -rf include/GLFW
     [[ -e include/assimp ]] && rm -rf include/assimp
+    # [[ -e include/GL ]] && rm -rf include/GL  ## remove GLEW as it does the same job as GLAD
     exit 0
 fi
+
+
 
 CPUCOUNT=$( cat /proc/cpuinfo | grep "^processor" | tail -n 1 | awk '{print $3}' )
 if [ "x$CPUCOUNT" == "x" ]
@@ -28,26 +59,15 @@ else
 fi
 echo "Using ${CPUCOUNT} processors for compilation"
 
-if [ "x$1" == "x" ]
+if [ "x${CXX_COMPILER}" == "x" ]
 then
     # go with system defaults
     CMAKE_ARGS="" 
 else
-    # e.g. gcc/g++ or clang/clang++
-    if [ "x$1" == "clang" ]
-    then
-        C_COMPILER="$1"
-        CXX_COMPILER="${1}++"
-    elif [ "x$1" == "gnu" ]
-    then
-        C_COMPILER="gcc"
-        CXX_COMPILER="g++"
-    else
-        echo "Invalid argument, expected gnu or clang"
-        exit 1
-    fi
     CMAKE_ARGS="-DCMAKE_C_COMPILER=$(which $C_COMPILER) -DCMAKE_CXX_COMPILER=$(which ${CXX_COMPILER})"
+    echo "cmake arguments: ${CMAKE_ARGS}"
 fi
+
 
 
 echo "Creating/Updating submodules"
@@ -80,10 +100,21 @@ cd ../../
 echo "Copying over GLM header only library"
 cp -R submodules/glm/glm include/glm
 
+# echo "Building GLEW library"
+# cd submodules/glew
+# cd auto
+# make -j ${CPUCOUNT}
+# cd ../build
+# cmake ./cmake
+# cp lib/libGLEW.a ../../../lib
+# cd ..
+# cp -R ./include/GL ../../include/
+# cd ../..
+
 echo "Building our application"
 mkdir build
 cd build
-cmake ${CMAKE_ARGS} ..
+cmake -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ${CMAKE_ARGS} ..
 if [ $? == 0 ]
 then
     make -j ${CPUCOUNT}
