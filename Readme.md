@@ -1,4 +1,6 @@
-# opengl_test
+# Basic OpenGL starter kit
+
+This is not finished yet but it is intended to be a starter kit for students looking to use OpenGL on projects for University of Highlands and Islands.
 
 ## Getting starts
 
@@ -65,4 +67,4 @@ sudo dnf -y install libXrandr-devel libxinerama-devel libXinerama-devel libXiner
 
 ## References
 
-* [How to setup OpenGL project with CMake, posted May 29 2018](https://shot511.github.io/2018-05-29-how-to-setup-opengl-project-with-cmake/)
+* [How to setup OpenGL project with CMake by Tomasz Gałaj, posted May 29 2018](https://shot511.github.io/2018-05-29-how-to-setup-opengl-project-with-cmake/)
