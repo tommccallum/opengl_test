@@ -5,7 +5,7 @@ project(${PROJ_NAME} LANGUAGES C CXX VERSION 0.1)
 # set todays date so we can store build date and time
 string(TIMESTAMP TODAY "%Y-%m-%d %H:%M")
 # output to user what compiler we are using
-message(${CMAKE_CXX_COMPILER_ID})
+message("CMAKE_CXX_COMPILER_ID: " ${CMAKE_CXX_COMPILER_ID})
 
 include(cmake/standard_project_settings.cmake)
 include(cmake/prevent_in_source_builds.cmake)
@@ -31,6 +31,7 @@ option(ENABLE_UNITY "Enable Unity builds of projects" OFF)
 option(CPP_STARTER_USE_IMGUI "Enable compilation of ImGui sample" OFF)
 #option(CPP_STARTER_USE_NANA "Enable compilation of Nana GUI sample" OFF)
 option(CPP_STARTER_USE_SDL "Enable compilation of SDL sample" OFF)
+option(ENABLE_GPROF "Enable profiling using GPROF" ON)
 
 # turned on by .travis.yml script
 option(ENABLE_COVERAGE "Enable coverage reporting for gcc/clang" OFF)
@@ -38,10 +39,19 @@ option(ENABLE_COVERAGE "Enable coverage reporting for gcc/clang" OFF)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
 
+
 # add compiler specific settings
 if(CMAKE_CXX_COMPILER_ID MATCHES ".*Clang")  
   if(ENABLE_BUILD_WITH_TIME_TRACE)
     add_compile_definitions(project_options INTERFACE -ftime-trace)
+  endif()
+endif()
+
+if(CMAKE_CXX_COMPILER_ID MATCHES ".*GNU")
+  if (ENABLE_GPROF)
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pg")
+    SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pg")
+    SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -pg")
   endif()
 endif()
 

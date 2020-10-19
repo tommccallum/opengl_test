@@ -37,3 +37,4 @@ lib/libassimp.a
 !assets/**/*.obj
 .vscode/
 display/
+run.stats

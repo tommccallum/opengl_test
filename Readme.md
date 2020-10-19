@@ -21,6 +21,7 @@ sudo dnf -y install libXrandr-devel libXinerama-devel libXcursor-devel libXi-dev
 sudo dnf -y install zlib-devel irrXML-devel
 sudo dnf -y install doxygen graphviz
 sudo dnf -y install cppcheck
+sudo dnf -y install ccache
 pip3 install --user conan
 conan profile update settings.compiler.libcxx=libstdc++11 default
 
@@ -90,9 +91,35 @@ or type the following for build.sh:
 ./build.sh --debug
 ```
 
+## Debug with gdb
+
+```
+gdb ./build/bin/opengltest
+```
+
+To set up with VS Code, setup a build task which calls build.sh and then a launch.json that points to the opengltest executable.
+
+
+## Profiling
+
+### Using GProf
+
+In the CMakeFile.txt in the main application directory run on the option:
+
+```
+option(ENABLE_GPROF "Enable profiling using GPROF" ON)
+```
+
+Then you can build and run the following:
+
+```
+gprof ./build/bin/opengltest > run.stats
+```
 
 
 ## References
 
 * [How to setup OpenGL project with CMake by Tomasz Gałaj, posted May 29 2018](https://shot511.github.io/2018-05-29-how-to-setup-opengl-project-with-cmake/)
 * [C++ Starter Project by Jason Turner aka Lefticus](https://github.com/lefticus/cpp_starter_project)
+* [gprof Quick-Start Guide](http://web.eecs.umich.edu/~sugih/pointers/gprof_quick.html)
+* [Adding profiling flags to CMake to use gprof](https://riptutorial.com/cmake/example/26665/adding-profiling-flags-to-cmake-to-use-gprof)

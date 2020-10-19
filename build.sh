@@ -117,7 +117,7 @@ cd build
 cmake -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ${CMAKE_ARGS} ..
 if [ $? == 0 ]
 then
-    make -j ${CPUCOUNT}
+    make -j ${CPUCOUNT} VERBOSE=1
     if [ $? == 0 ]
     then   
         make test

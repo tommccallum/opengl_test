@@ -132,7 +132,7 @@ void update()
         /* Update game time value */
         newTime  = static_cast<float>(glfwGetTime());
         gameTime = newTime - startTime;
-
+        if ( gameTime > 5.0f ) break;
         /* Render here */
         render(gameTime);
 
