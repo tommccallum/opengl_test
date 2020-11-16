@@ -18,6 +18,7 @@ include_directories(${CMAKE_BINARY_DIR}/src)
 add_executable(
   ${PROJECT_NAME}
   main.cpp
+  opengl_main.cpp
   rendering/Shader.cpp
   rendering/Texture.cpp
   )

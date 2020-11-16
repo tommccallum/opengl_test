@@ -25,16 +25,24 @@ option(ENABLE_BUILD_WITH_TIME_TRACE "Enable -ftime-trace to generate time tracin
 option(ENABLE_CPPCHECK "Enable static analysis with cppcheck" OFF)
 option(ENABLE_CLANG_TIDY "Enable static analysis with clang-tidy" OFF)
 option(ENABLE_UNITY "Enable Unity builds of projects" OFF)
+option(CPP_STARTER_USE_OPENGL "Enable compilation of OpenGL sample" ON)
 #option(CPP_STARTER_USE_QT "Enable compilation of QT sample" OFF)
 #option(CPP_STARTER_USE_FLTK "Enable compilation of FLTK sample" OFF)
 #option(CPP_STARTER_USE_GTKMM "Enable compilation of GTKMM sample" OFF)
 option(CPP_STARTER_USE_IMGUI "Enable compilation of ImGui sample" OFF)
 #option(CPP_STARTER_USE_NANA "Enable compilation of Nana GUI sample" OFF)
 option(CPP_STARTER_USE_SDL "Enable compilation of SDL sample" OFF)
-option(ENABLE_GPROF "Enable profiling using GPROF" ON)
+option(ENABLE_GPROF "Enable profiling using GPROF" OFF)
 
 # turned on by .travis.yml script
 option(ENABLE_COVERAGE "Enable coverage reporting for gcc/clang" OFF)
+
+# convert our options to numeric values for interpretation by our
+# C(++) program
+set(CPP_STARTER_USE_OPENGL_VALUE 0)
+if (CPP_STARTER_USE_OPENGL)
+  set(CPP_STARTER_USE_OPENGL_VALUE 1)
+endif()
 
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
