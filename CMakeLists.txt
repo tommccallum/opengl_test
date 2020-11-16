@@ -28,14 +28,14 @@ option(ENABLE_UNITY "Enable Unity builds of projects" OFF)
 option(ENABLE_GPROF "Enable profiling using GPROF" OFF)
 
 # Framework options, turn one on at a time!
-option(CPP_STARTER_USE_DEFAULT "Enable default compilation" OFF)
+option(CPP_STARTER_USE_DEFAULT "Enable default compilation" ON)
 option(CPP_STARTER_USE_GLFW "Enable compilation of GLFW sample" OFF)
 option(CPP_STARTER_USE_QT "Enable compilation of QT sample" OFF)
 option(CPP_STARTER_USE_SDL "Enable compilation of SDL sample" OFF)        # buggy still
 option(CPP_STARTER_USE_FLTK "Enable compilation of FLTK sample" OFF)
 option(CPP_STARTER_USE_GTKMM "Enable compilation of GTKMM sample" OFF)
 option(CPP_STARTER_USE_IMGUI "Enable compilation of ImGui sample" OFF)
-option(CPP_STARTER_USE_NANA "Enable compilation of Nana GUI sample" ON)
+option(CPP_STARTER_USE_NANA "Enable compilation of Nana GUI sample" OFF)
 
 
 
