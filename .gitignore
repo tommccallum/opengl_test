@@ -38,3 +38,5 @@ lib/libassimp.a
 .vscode/
 display/
 run.stats
+include/FL
+include/glm

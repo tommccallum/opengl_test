@@ -55,6 +55,8 @@ sudo dnf -y install xorg-x11-xkb-utils-devel libXres-devel libXScrnSaver-devel l
 sudo dnf -y install xcb-util-wm-devel xcb-util-image-devel xcb-util-keysyms-devel xcb-util-renderutil-devel
 sudo dnf -y install libXdamage-devel libXxf86vm-devel xkeyboard-config-devel libcap-devel
 pip3 install --user mako
+# gtkmm
+sudo dnf install gtkmm30-devel gtk3-devel gstreamer1-devel clutter-devel webkit2gtk3-devel libgda-devel gobject-introspection-devel
 
 # install conan
 pip3 install --user conan

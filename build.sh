@@ -39,11 +39,15 @@ then
     [[ -e submodules/assimp/build ]] && rm -rf submodules/assimp/build
     [[ -e submodules/glfw/build ]] && rm -rf submodules/glfw/build
     [[ -e submodules/glew/build ]] && rm -rf submodules/glew/build
-    [[ -e lib/libassimp.a ]] && rm -f /lib/libassimp.a
-    [[ -e lib/libglfw3.a ]] && rm -f /lib/libglfw3.a
+    [[ -e lib/libassimp.a ]] && rm -f ./lib/libassimp.a
+    [[ -e lib/libglfw3.a ]] && rm -f ./lib/libglfw3.a
     [[ -e include/glm ]] && rm -rf include/glm
     [[ -e include/GLFW ]] && rm -rf include/GLFW
     [[ -e include/assimp ]] && rm -rf include/assimp
+
+    [[ -e submodules/fltk ]] && rm -rf include/FL
+    [[ -e submodules/fltk ]] && rm -f lib/libfltk*
+    [[ -e submodules/fltk ]] && cd submodules/fltk && make clean
     # [[ -e include/GL ]] && rm -rf include/GL  ## remove GLEW as it does the same job as GLAD
     exit 0
 fi
@@ -102,13 +106,11 @@ cp -R submodules/glm/glm include/glm
 
 echo "Building FLTK library"
 cd submodules/fltk
-[[ ! -e build ]] && mkdir build
-cd build
-cmake ${CMAKE_ARGS} ..
+./autogen.sh
+./configure
 make -j ${CPUCOUNT}
-cp ./src/libglfw3.a ../../../lib/
-cd ..
-cp -R ./include/GLFW ../../include/GLFW
+cp ./lib/lib*.a ../../lib/
+cp -R ./FL ../../include/FL
 cd ../../
 
 # echo "Building GLEW library"
