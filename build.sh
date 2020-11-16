@@ -100,6 +100,17 @@ cd ../../
 echo "Copying over GLM header only library"
 cp -R submodules/glm/glm include/glm
 
+echo "Building FLTK library"
+cd submodules/fltk
+[[ ! -e build ]] && mkdir build
+cd build
+cmake ${CMAKE_ARGS} ..
+make -j ${CPUCOUNT}
+cp ./src/libglfw3.a ../../../lib/
+cd ..
+cp -R ./include/GLFW ../../include/GLFW
+cd ../../
+
 # echo "Building GLEW library"
 # cd submodules/glew
 # cd auto

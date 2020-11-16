@@ -26,6 +26,7 @@ add_subdirectory("default")
 add_subdirectory("Qt")
 add_subdirectory("SDL")
 add_subdirectory("GLFW")
+add_subdirectory("fltk")
 
 
 

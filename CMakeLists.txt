@@ -30,9 +30,9 @@ option(ENABLE_GPROF "Enable profiling using GPROF" OFF)
 # Framework options
 option(CPP_STARTER_USE_DEFAULT "Enable default compilation" OFF)
 option(CPP_STARTER_USE_GLFW "Enable compilation of GLFW sample" OFF)
-option(CPP_STARTER_USE_QT "Enable compilation of QT sample" ON)
+option(CPP_STARTER_USE_QT "Enable compilation of QT sample" OFF)
 option(CPP_STARTER_USE_SDL "Enable compilation of SDL sample" OFF)        # buggy still
-#option(CPP_STARTER_USE_FLTK "Enable compilation of FLTK sample" OFF)
+option(CPP_STARTER_USE_FLTK "Enable compilation of FLTK sample" ON)
 #option(CPP_STARTER_USE_GTKMM "Enable compilation of GTKMM sample" OFF)
 #option(CPP_STARTER_USE_IMGUI "Enable compilation of ImGui sample" OFF)
 #option(CPP_STARTER_USE_NANA "Enable compilation of Nana GUI sample" OFF)
@@ -58,10 +58,15 @@ endif()
 
 set(CPP_STARTER_USE_SDL_VALUE 0)
 if (CPP_STARTER_USE_SDL)
-set(CPP_STARTER_USE_DEFAULT OFF)
+  set(CPP_STARTER_USE_DEFAULT OFF)
   set(CPP_STARTER_USE_SDL_VALUE 1)
 endif()
 
+set(CPP_STARTER_USE_FLTK_VALUE 0)
+if (CPP_STARTER_USE_FLTK)
+  set(CPP_STARTER_USE_DEFAULT OFF)
+  set(CPP_STARTER_USE_FLTK_VALUE 1)
+endif()
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
 
