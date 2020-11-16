@@ -17,8 +17,14 @@
 #include "rendering/Texture.h"
 #include "rendering/Model.h"
 
+// Note that any instructions starting with a hash (#) are interpreted by the 
+// "preprocessor" which is a text replacement program.  Using #if...#else...#endif
+// you can turn on and off bits of code for different platforms or different
+// end user requirements.
+
 // set this macro define statement to non-zero to activate docopt example code
 #define ENABLE_DOCOPT_EXAMPLE 0
+// set this macro define statement to non-zero to activate fmt example code
 #define ENABLE_FMT_EXAMPLE 0
 
 
