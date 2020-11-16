@@ -72,8 +72,13 @@ git clone https://github.com/tommccallum/opengl_test
 So this starterkit has multiple entry points depending on the frameworks you want to use. You can turn framework on and off in the top level CMakeLists.txt file.
 
 ```
+option(CPP_STARTER_USE_DEFAULT "Enable default compilation" ON)
 option(CPP_STARTER_USE_GLFW "Enable compilation of GLFW sample" OFF)
-option(CPP_STARTER_USE_QT "Enable compilation of QT sample" ON)
+option(CPP_STARTER_USE_QT "Enable compilation of QT sample" OFF)
+option(CPP_STARTER_USE_FLTK "Enable compilation of FLTK sample" OFF)
+option(CPP_STARTER_USE_GTKMM "Enable compilation of GTKMM sample" OFF)
+option(CPP_STARTER_USE_IMGUI "Enable compilation of ImGui sample" OFF)
+option(CPP_STARTER_USE_NANA "Enable compilation of Nana GUI sample" OFF)
 ```
 
 TIP: Run "./build.sh clean" before changing frameworks.
