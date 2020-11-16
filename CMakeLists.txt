@@ -25,23 +25,41 @@ option(ENABLE_BUILD_WITH_TIME_TRACE "Enable -ftime-trace to generate time tracin
 option(ENABLE_CPPCHECK "Enable static analysis with cppcheck" OFF)
 option(ENABLE_CLANG_TIDY "Enable static analysis with clang-tidy" OFF)
 option(ENABLE_UNITY "Enable Unity builds of projects" OFF)
-option(CPP_STARTER_USE_OPENGL "Enable compilation of OpenGL sample" ON)
-#option(CPP_STARTER_USE_QT "Enable compilation of QT sample" OFF)
+option(ENABLE_GPROF "Enable profiling using GPROF" OFF)
+
+# Framework options
+option(CPP_STARTER_USE_DEFAULT "Enable default compilation" OFF)
+option(CPP_STARTER_USE_GLFW "Enable compilation of GLFW sample" OFF)
+option(CPP_STARTER_USE_QT "Enable compilation of QT sample" ON)
+option(CPP_STARTER_USE_SDL "Enable compilation of SDL sample" OFF)        # buggy still
 #option(CPP_STARTER_USE_FLTK "Enable compilation of FLTK sample" OFF)
 #option(CPP_STARTER_USE_GTKMM "Enable compilation of GTKMM sample" OFF)
-option(CPP_STARTER_USE_IMGUI "Enable compilation of ImGui sample" OFF)
+#option(CPP_STARTER_USE_IMGUI "Enable compilation of ImGui sample" OFF)
 #option(CPP_STARTER_USE_NANA "Enable compilation of Nana GUI sample" OFF)
-option(CPP_STARTER_USE_SDL "Enable compilation of SDL sample" OFF)
-option(ENABLE_GPROF "Enable profiling using GPROF" OFF)
+
+
 
 # turned on by .travis.yml script
 option(ENABLE_COVERAGE "Enable coverage reporting for gcc/clang" OFF)
 
 # convert our options to numeric values for interpretation by our
 # C(++) program
-set(CPP_STARTER_USE_OPENGL_VALUE 0)
-if (CPP_STARTER_USE_OPENGL)
-  set(CPP_STARTER_USE_OPENGL_VALUE 1)
+set(CPP_STARTER_USE_GLFW_VALUE 0)
+if (CPP_STARTER_USE_GLFW)
+  set(CPP_STARTER_USE_DEFAULT OFF)
+  set(CPP_STARTER_USE_GLFW_VALUE 1)
+endif()
+
+set(CPP_STARTER_USE_QT_VALUE 0)
+if (CPP_STARTER_USE_QT)
+  set(CPP_STARTER_USE_DEFAULT OFF)
+  set(CPP_STARTER_USE_QT_VALUE 1)
+endif()
+
+set(CPP_STARTER_USE_SDL_VALUE 0)
+if (CPP_STARTER_USE_SDL)
+set(CPP_STARTER_USE_DEFAULT OFF)
+  set(CPP_STARTER_USE_SDL_VALUE 1)
 endif()
 
 
@@ -97,6 +115,7 @@ if(CPP_STARTER_USE_IMGUI)
 endif()
 
 if(CPP_STARTER_USE_SDL)
+  # WARNING: this can take A LOOOONNNNNGGGG time to download and compile
   set(CONAN_EXTRA_REQUIRES ${CONAN_EXTRA_REQUIRES} sdl2/2.0.10@bincrafters/stable)
   # set(CONAN_EXTRA_OPTIONS ${CONAN_EXTRA_OPTIONS} sdl2:wayland=True)
 endif()
@@ -126,6 +145,14 @@ add_library(STB_IMAGE "thirdparty/stb_image.cpp")
 # GLAD (https://glad.dav1d.de/)
 add_library(GLAD "thirdparty/glad.c")
 
+#Qt (https://cmake.org/cmake/help/v3.5/manual/cmake-qt.7.html)
+# Instruct CMake to run moc automatically when needed.
+set(Qt5_DIR )
+set(CMAKE_AUTOMOC ON)
+find_package(Qt5Widgets REQUIRED)
+#find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
+
+# zlib
 find_package(ZLIB REQUIRED)
 
 # Put all libraries into a variable

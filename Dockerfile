@@ -1,5 +1,7 @@
 FROM ubuntu:latest
 
+# @TODO currenly only runs the GLFW test, needs fixing up.
+
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get -y upgrade
 RUN apt-get -y update
@@ -19,6 +21,9 @@ RUN apt-get -y install libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev
 RUN apt-get -y install git 
 RUN apt-get -y install libirrlicht-dev
 RUN apt-get -y install glmark2
+#RUN apt-get -y install qt5-default
+#RUN sudo apt-get install libtool m4 automake
+
 # RUN apt-get -y install libglvnd0 \
 #     libgl1 \
 #     libglx0 \

@@ -1,7 +1,15 @@
 /** 
+ * This demonstrates a OpenGL program using GLFW
+ * 
+ * 
+ * This was originally from a starterkit by:
  * Copyright (C) 2018 Tomasz Ga�aj
  **/
-#include "helpers/RootDir.h"
+
+#include <helpers/RootDir.h>
+#if CPP_STARTER_USE_GLFW
+
+
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -14,9 +22,9 @@
 #include <docopt/docopt.h>
 #include <map>
 
-#include "rendering/Shader.h"
-#include "rendering/Texture.h"
-#include "rendering/Model.h"
+#include "../rendering/Shader.h"
+#include "../rendering/Texture.h"
+#include "../rendering/Model.h"
 
 // Note that any instructions starting with a hash (#) are interpreted by the 
 // "preprocessor" which is a text replacement program.  Using #if...#else...#endif
@@ -192,7 +200,7 @@ void update()
 }
 
 
-#if CPP_STARTER_USE_OPENGL
+
 
 // This is the main entry into our OpenGL program
 // the arguments to main can be:

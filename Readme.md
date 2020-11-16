@@ -33,19 +33,30 @@ If you have a BitBucket account then you need to create a new project:
  
 ## Getting started
 
-Notes
-
 * the dnf commands are for Fedora 32 and other commands may be required for other distributions.
 * I am using the static libraries rather than dynamic libraries
 * For Ubuntu dependencies you can copy and paste from the Dockerfile
 
 ```
+# required for all
+sudo dnf -y install cppcheck
+sudo dnf -y install ccache
+# required for OpenGL
 sudo dnf -y install mesa-libGL-devel mesa-libGLU-devel zlib-devel
 sudo dnf -y install libXrandr-devel libXinerama-devel libXcursor-devel libXi-devel
 sudo dnf -y install zlib-devel irrXML-devel
+# required for DOxygen support
 sudo dnf -y install doxygen graphviz
-sudo dnf -y install cppcheck
-sudo dnf -y install ccache
+# required for QT5
+sudo dnf -y install qt5-devel
+# required for SDL framework
+sudo dnf -y install libtool libfontenc-devel libXaw-devel libXcomposite-devel libXdmcp-devel libXtst-devel
+sudo dnf -y install xorg-x11-xkb-utils-devel libXres-devel libXScrnSaver-devel libXvMC-devel xorg-x11-xtrans-devel
+sudo dnf -y install xcb-util-wm-devel xcb-util-image-devel xcb-util-keysyms-devel xcb-util-renderutil-devel
+sudo dnf -y install libXdamage-devel libXxf86vm-devel xkeyboard-config-devel libcap-devel
+pip3 install --user mako
+
+# install conan
 pip3 install --user conan
 conan profile update settings.compiler.libcxx=libstdc++11 default
 
@@ -53,6 +64,17 @@ git clone https://github.com/tommccallum/opengl_test
 ./build.sh
 ./build/bin/opengl_test
 ```
+
+## Frameworks
+
+So this starterkit has multiple entry points depending on the frameworks you want to use. You can turn framework on and off in the top level CMakeLists.txt file.
+
+```
+option(CPP_STARTER_USE_GLFW "Enable compilation of GLFW sample" OFF)
+option(CPP_STARTER_USE_QT "Enable compilation of QT sample" ON)
+```
+
+TIP: Run "./build.sh clean" before changing frameworks.
 
 ## Docker
 
