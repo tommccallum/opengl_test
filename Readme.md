@@ -30,7 +30,7 @@ If you have a BitBucket account then you need to create a new project:
 * Give it a project name
 * Import repository
 * Then once that is done clone the new repo as normal.
-* 
+ 
 ## Getting started
 
 Notes
