@@ -34,8 +34,8 @@ option(CPP_STARTER_USE_QT "Enable compilation of QT sample" OFF)
 option(CPP_STARTER_USE_SDL "Enable compilation of SDL sample" OFF)        # buggy still
 option(CPP_STARTER_USE_FLTK "Enable compilation of FLTK sample" OFF)
 option(CPP_STARTER_USE_GTKMM "Enable compilation of GTKMM sample" OFF)
-option(CPP_STARTER_USE_IMGUI "Enable compilation of ImGui sample" ON)
-#option(CPP_STARTER_USE_NANA "Enable compilation of Nana GUI sample" OFF)
+option(CPP_STARTER_USE_IMGUI "Enable compilation of ImGui sample" OFF)
+option(CPP_STARTER_USE_NANA "Enable compilation of Nana GUI sample" ON)
 
 
 
@@ -80,7 +80,11 @@ if (CPP_STARTER_USE_IMGUI)
   set(CPP_STARTER_USE_IMGUI_VALUE 1)
 endif()
 
-
+set(CPP_STARTER_USE_NANA_VALUE 0)
+if (CPP_STARTER_USE_NANA)
+  set(CPP_STARTER_USE_DEFAULT OFF)
+  set(CPP_STARTER_USE_NANA_VALUE 1)
+endif()
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
 

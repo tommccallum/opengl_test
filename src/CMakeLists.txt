@@ -29,7 +29,7 @@ add_subdirectory("GLFW")
 add_subdirectory("fltk")
 add_subdirectory("gtkmm")
 add_subdirectory("imgui")
-
+add_subdirectory("nana")
 
 # Define the link libraries
 #target_link_libraries(${PROJECT_NAME} ${LIBS})
