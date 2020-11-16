@@ -5,10 +5,11 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-
 #define  GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+
+#include <fmt/core.h>
 
 #include "rendering/Shader.h"
 #include "rendering/Texture.h"
@@ -18,6 +19,8 @@ GLFWwindow* main_window;
 const int WINDOW_WIDTH  = 1024;
 const int WINDOW_HEIGHT = 768;
 
+// some global variable objects that we need
+// to clean up before we end.
 Model   * mesh    = nullptr;
 Shader  * shader  = nullptr;
 Texture * texture = nullptr;
@@ -148,21 +151,36 @@ void update()
     }
 }
 
-int main(void)
+
+// This is the main entry into our OpenGL program
+// the arguments to main can be:
+//      empty
+//      void                    // this will create a linter error "redundant void argument list in function definition"
+//      int argc, char* argv[]
+//      int argc, char** argv
+int main()
 {
-    // can I read options in using docopt?
-    // can I print some message using fmt library?
-    
+    // first steps:
+    //  can you read options in using docopt?
+
+    //  can you print some message using fmt library?
+    fmt::print("Hello student! The answer is obviously {}.", 42); // notice WHEN is this printed? what if you add '\n' to the end of the string?
+
+    // we are going to set up our OpenGL environment first
     if (!init())
         return -1;
 
+    // load our models and textures
     if (!loadContent())
         return -1;
 
+    // update based on user interaction
     update();
 
+    // terminate the application
     glfwTerminate();
 
+    // clean up any objects that we created directly on the stack
     delete mesh;
     delete shader;
     delete texture;
