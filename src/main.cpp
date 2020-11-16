@@ -10,10 +10,17 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <fmt/core.h>
+#include <docopt/docopt.h>
+#include <map>
 
 #include "rendering/Shader.h"
 #include "rendering/Texture.h"
 #include "rendering/Model.h"
+
+// set this macro define statement to non-zero to activate docopt example code
+#define ENABLE_DOCOPT_EXAMPLE 0
+#define ENABLE_FMT_EXAMPLE 0
+
 
 GLFWwindow* main_window;
 const int WINDOW_WIDTH  = 1024;
@@ -33,6 +40,29 @@ glm::vec3 cam_up       = glm::vec3(0.0f, 1.0f, 0.0f);
 glm::mat4 world_matrix      = glm::mat4(1.0f);
 glm::mat4 view_matrix       = glm::lookAt(cam_position, cam_look_at, cam_up);
 glm::mat4 projection_matrix = glm::perspectiveFov(glm::radians(60.0f), float(WINDOW_WIDTH), float(WINDOW_HEIGHT), 0.1f, 10.0f);
+
+#if ENABLE_DOCOPT_EXAMPLE
+// example docopt usage parameters from https://github.com/docopt/docopt.cpp
+static const char USAGE[] =
+R"(OpenGlTest.
+
+    Usage:
+      opengltest ship new <name>...
+      opengltest ship <name> move <x> <y> [--speed=<kn>]
+      opengltest ship shoot <x> <y>
+      opengltest mine (set|remove) <x> <y> [--moored | --drifting]
+      opengltest (-h | --help)
+      opengltest --version
+
+    Options:
+      -h --help     Show this screen.
+      --version     Show version.
+      --speed=<kn>  Speed in knots [default: 10].
+      --moored      Moored (anchored) mine.
+      --drifting    Drifting mine.
+)";
+#endif
+
 
 void window_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -140,6 +170,9 @@ void update()
         gameTime = newTime - startTime;
         if ( gameTime > 5.0f ) break;
 
+        // You can put code about what your program does here
+        // before we render the screen again
+
         /* Render here */
         render(gameTime);
 
@@ -158,13 +191,31 @@ void update()
 //      void                    // this will create a linter error "redundant void argument list in function definition"
 //      int argc, char* argv[]
 //      int argc, char** argv
+//      int argc, char* argv[], char* env[] // get environment variables
+#if ENABLE_DOCOPT_EXAMPLE
+int main(int argc, char* argv[])
+#else
 int main()
+#endif
 {
     // first steps:
     //  can you read options in using docopt?
+#if ENABLE_DOCOPT_EXAMPLE
+    // to activate this piece of code set ENABLE_DOCOPT_EXAMPLE to a value > 0
+    std::map<std::string, docopt::value> args = docopt::docopt(USAGE,
+                         { argv + 1, argv + argc },
+                         true,               // show help if requested
+                         "OpenGlTest 2.0");  // version string
 
+    for(auto const& arg : args) {
+        std::cout << arg.first <<  arg.second << std::endl;
+    }
+#endif
+
+#if ENABLE_FMT_EXAMPLE
     //  can you print some message using fmt library?
     fmt::print("Hello student! The answer is obviously {}.", 42); // notice WHEN is this printed? what if you add '\n' to the end of the string?
+#endif
 
     // we are going to set up our OpenGL environment first
     if (!init())
