@@ -7,6 +7,30 @@ This is not finished yet but it is intended to be a starter kit for students loo
 [![Build Status](https://travis-ci.org/tommccallum/opengl_test.svg?branch=master)](https://travis-ci.org/tommccallum/opengl_test)
 
 
+## Cloning this project
+
+To get the most out of this starterkit you will want to create a new repo and modify the files.  Here are some basic instructions on how to do that:
+
+### GitHub
+
+If you have a Github account you can just use the Fork functionality. You can find more detailed instructions here:
+
+https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/fork-a-repo
+
+In the top right hand corner you will see the Fork button.  If you have a GitHub account it will copy the repository to your account.
+
+### Bitbucket
+
+If you have a BitBucket account then you need to create a new project:
+
+* Go to your workspace (list of repositories)
+* Click on Create repository
+* Click on Import repository in top right.
+* Type in url 'https://github.com/tommccallum/opengl_test'
+* Give it a project name
+* Import repository
+* Then once that is done clone the new repo as normal.
+* 
 ## Getting started
 
 Notes

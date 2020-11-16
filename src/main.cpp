@@ -33,7 +33,7 @@ glm::mat4 projection_matrix = glm::perspectiveFov(glm::radians(60.0f), float(WIN
 
 void window_size_callback(GLFWwindow* window, int width, int height)
 {
-    (void) window;
+    (void) window; // this stops variable not used warnings
     glViewport(0, 0, width, height);
     projection_matrix = glm::perspectiveFov(glm::radians(60.0f), float(width), float(height), 0.1f, 10.0f);
 
@@ -107,6 +107,9 @@ int loadContent()
 
 void render(float time)
 {
+    // bitwise-or (|) : given 0 and a 0 => 0, otherwise 1 for each bit in the byte
+    // logical-or (||) : is any bit in byte 1, if so that will be true (e.g. !0)
+    // combining the two values 00001000 and 00000001 => 00001001
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     /* Draw our triangle */
@@ -133,6 +136,7 @@ void update()
         newTime  = static_cast<float>(glfwGetTime());
         gameTime = newTime - startTime;
         if ( gameTime > 5.0f ) break;
+
         /* Render here */
         render(gameTime);
 
@@ -146,6 +150,9 @@ void update()
 
 int main(void)
 {
+    // can I read options in using docopt?
+    // can I print some message using fmt library?
+    
     if (!init())
         return -1;
 
